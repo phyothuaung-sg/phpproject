@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="/IT_BLOG/backend/index.php">
+        <a class="nav-link" href="<?= route ('index.php') ?>">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -29,7 +29,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="/IT_BLOG/backend/category/list.php">
+        <a class="nav-link" href="<?= route ('category/list.php') ?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Categories</span></a>
     </li>
