@@ -1,4 +1,8 @@
-<?php include 'config.php'; ?>
+<?php 
+include 'config.php'; 
+include '../dbconnect.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

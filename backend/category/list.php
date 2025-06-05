@@ -1,4 +1,7 @@
-<?php include '../config.php'; ?>
+<?php 
+include '../config.php'; 
+include '../../dbconnect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,36 +57,30 @@
                     <table class="table table-bordered table-hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th>id</th>
-                                <th>names</th>
-                                <th>action</th>
+                                <th>No</th>
+                                <th>Category Names</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                                $stmt = $pdo->query("SELECT * FROM categories ORDER BY id DESC");
+                                $categories = $stmt->fetchALL(PDO::FETCH_ASSOC);
+                                //print_r($categories);
+
+                                $i=1;
+                                foreach ($categories as $category):
+                            ?>
                             <tr>
-                                <td>1</td>
-                                <td>IT</td>
+                                <td><?= $i++; ?></td>
+                                <td><?= $category['name'] ?></td>
                                 <td>
                                     <a href="edit.php" class="btn btn-primary">Edit</a>
-                                    <a href="delete.php" class="btn btn-danger">Delete</a>
+                                    <a href="delete.php?id=<?= $category['id'] ?>" onclick="return confirm('Are you sure to delete')" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>AI</td>
-                                <td>
-                                    <a href="edit.php" class="btn btn-primary">Edit</a>
-                                    <a href="delete.php" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Programming</td>
-                                <td>
-                                    <a href="edit.php" class="btn btn-primary">Edit</a>
-                                    <a href="delete.php" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
+                            <?php endforeach; ?>
+                            
                         </tbody>
                     </table>
                 </div>

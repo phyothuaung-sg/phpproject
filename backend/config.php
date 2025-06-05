@@ -1,5 +1,5 @@
 <?php 
-    include '../dbconnect.php';
+    
     define('BASE_URL', '/IT_BLOG/backend'); 
    
 
