@@ -9,4 +9,5 @@ if(isset($_GET['id'])) {
     ]);
 }
 header('Location: list.php');
+
 ?>
