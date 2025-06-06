@@ -75,7 +75,7 @@ include '../../dbconnect.php';
                                 <td><?= $i++; ?></td>
                                 <td><?= $category['name'] ?></td>
                                 <td>
-                                    <a href="edit.php" class="btn btn-primary">Edit</a>
+                                    <a href="edit.php?id=<?= $category['id'] ?>" class="btn btn-primary">Edit</a>
                                     <a href="delete.php?id=<?= $category['id'] ?>" onclick="return confirm('Are you sure to delete')" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

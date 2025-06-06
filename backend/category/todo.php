@@ -106,7 +106,7 @@ if (isset($_GET['delete'])) {
                                 <td><?= htmlspecialchars($task['task']) ?></td>
                                 <td>
                                     <a href="" class="btn btn-primary">Pending</a>
-                                    <a href="todo.php?delete=<?= $task['id'] ?>" onclick="return confirm('Are you sure your task is completed?')" class="btn btn-danger">Completed</a>
+                                    <a href="todo.php?delete=<?= $task['id'] ?>" onclick="return confirm('Are you sure your task is completed?')" class="btn btn-outline-danger">Completed</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

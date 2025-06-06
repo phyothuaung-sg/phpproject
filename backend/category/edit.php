@@ -3,6 +3,26 @@
 include '../config.php'; 
 include '../../dbconnect.php';
 
+if(isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $stmt = $pdo->prepare("SELECT * FROM categories WHERE id = :id");
+    $stmt->execute([
+        'id' => $id
+    ]);
+    $category = $stmt->fetch(PDO::FETCH_ASSOC);
+    //print_r($category);
+
+     if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+        $name = htmlspecialchars($_POST['categoryName']);
+        $stmt = $pdo->prepare("UPDATE categories SET name = :name WHERE id = :id");
+        $stmt->execute([
+            'name' => $name,
+            'id' => $_GET['id']
+        ]);
+        header('Location: list.php');
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,10 +76,10 @@ include '../../dbconnect.php';
                         <a href="list.php" class="btn btn-primary">Back</a>
                     </div>
 
-                    <form action="#" method=""post>
+                    <form action="#" method="post">
                         <div class="form-group">
-                            <label for="name">Nmae</label>
-                            <input type="text" placeholder="Enter Category Name" class="form-control w-50" name="name" id="name" required value="IT">
+                            <label for="name">Name</label>
+                            <input type="text" placeholder="Enter Category Name" class="form-control w-50" name="categoryName" id="name" required value="<?= $category['name'] ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
