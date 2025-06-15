@@ -52,6 +52,7 @@ include '../../dbconnect.php';
                     <div class="d-flex align-items-center mb-4">
                         <h1 class="h3 text-gray-800 mb-0" style="margin-right: 60px;">Category List Page</h1>
                         <a href="create.php" class="btn btn-primary">Add Category</a>
+                        <a href="student_list.php" class="btn btn-outline-primary" style="margin-left: 50px;" >Student List (CRUD)</a>
                     </div>
 
                     <table class="table table-bordered table-hover">

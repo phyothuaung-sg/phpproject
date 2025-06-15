@@ -50,38 +50,43 @@ include '../../dbconnect.php';
 
                     <!-- Page Heading -->
                     <div class="d-flex align-items-center mb-4">
-                        <h1 class="h3 text-gray-800 mb-0" style="margin-right: 60px;">Student List Page</h1>
-                        <a href="student_create.php" class="btn btn-primary">Add Student</a>
-                         <a href="list.php" class="btn btn-outline-primary" style="margin-left: 50px;" >Back</a>
+                        <h1 class="h3 text-gray-800 mb-0" style="margin-right: 60px;">Post List Page</h1>
+                        <!-- <a href="create.php" class="btn btn-primary">Add Category</a> -->
+                        <!-- <a href="student_list.php" class="btn btn-outline-primary" style="margin-left: 50px;" >Student List (CRUD)</a> -->
                     </div>
 
                     <table class="table table-bordered table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th>No</th>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Address</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>Status</th>
+
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                $stmt = $pdo->query("SELECT * FROM students ORDER BY id DESC");
-                                $students = $stmt->fetchALL(PDO::FETCH_ASSOC);
-                                //print_r($students);
+                                $stmt = $pdo->query("SELECT posts.*, users.name As author_name, categories.name AS category_name FROM posts  LEFT JOIN users ON posts.author_id = users. id LEFT JOIN categories ON posts.category_id = categories.id ORDER BY id DESC");
+                                $posts = $stmt->fetchALL(PDO::FETCH_ASSOC);
+                                //print_r($posts);
 
                                 $i=1;
-                                foreach ($students as $student):
+                                foreach ($posts as $post):
                             ?>
                             <tr>
                                 <td><?= $i++; ?></td>
-                                <td><?= $student['name'] ?></td>
-                                <td><?= $student['gender'] ?></td>
-                                <td><?= $student['address'] ?></td>
-                                 <td>
-                                    <a href="student_edit.php?id=<?= $student['id'] ?>" class="btn btn-primary">Edit</a>
-                                    <a href="student_delete.php?id=<?= $student['id'] ?>" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger">Delete</a>
+                                <td><?= $post['title'] ?></td>
+                                <td><?= $post['author_name'] ?></td>
+                                <td><?= $post['category_name'] ?></td>
+                                <td>
+                                    <?= $post['status'] ?>
+                                    <span> <?= $post['created_at'] ?></span>
+                                </td>
+                                <td>
+                                    <a href="detail.php?id=<?= $post['id'] ?>" class="btn btn-primary">Detail</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

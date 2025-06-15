@@ -1,6 +1,16 @@
 <?php 
 include '../config.php'; 
 include '../../dbconnect.php';
+
+if(isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $stmt = $pdo->prepare("SELECT posts.*, users.name AS author_name, categories.name AS category_name FROM posts LEFT JOIN users ON posts.author_id = users.id LEFT JOIN categories ON posts.category_id = categories.id  WHERE posts.id = :id");
+    $stmt->execute([
+        'id' => $id
+    ]);
+    $post = $stmt->fetch(PDO::FETCH_ASSOC);
+    // print_r($post);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,44 +60,20 @@ include '../../dbconnect.php';
 
                     <!-- Page Heading -->
                     <div class="d-flex align-items-center mb-4">
-                        <h1 class="h3 text-gray-800 mb-0" style="margin-right: 60px;">Student List Page</h1>
-                        <a href="student_create.php" class="btn btn-primary">Add Student</a>
-                         <a href="list.php" class="btn btn-outline-primary" style="margin-left: 50px;" >Back</a>
+                        <h1 class="h3 text-gray-800 mb-0" style="margin-right: 60px;">Post Detail Page</h1>
+                        <!-- <a href="create.php" class="btn btn-primary">Add Category</a> -->
+                        <!-- <a href="student_list.php" class="btn btn-outline-primary" style="margin-left: 50px;" >Student List (CRUD)</a> -->
                     </div>
+                    <div class="card mb-3">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $post['title'] ?></h5>
+                            <p class="card-text"><?= $post['content'] ?></p>
+                            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago <strong>By <?= $post['author_name'] ?></strong></small></p>
+                        </div>
+                     </div>
 
-                    <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Address</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                $stmt = $pdo->query("SELECT * FROM students ORDER BY id DESC");
-                                $students = $stmt->fetchALL(PDO::FETCH_ASSOC);
-                                //print_r($students);
-
-                                $i=1;
-                                foreach ($students as $student):
-                            ?>
-                            <tr>
-                                <td><?= $i++; ?></td>
-                                <td><?= $student['name'] ?></td>
-                                <td><?= $student['gender'] ?></td>
-                                <td><?= $student['address'] ?></td>
-                                 <td>
-                                    <a href="student_edit.php?id=<?= $student['id'] ?>" class="btn btn-primary">Edit</a>
-                                    <a href="student_delete.php?id=<?= $student['id'] ?>" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                            
-                        </tbody>
-                    </table>
+                    
                 </div>
                 <!-- /.container-fluid -->
 

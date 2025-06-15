@@ -17,12 +17,12 @@ if(isset($_GET['id'])) {
         $gender = $_POST['gender'];
         $address = htmlspecialchars($_POST['studentAddress']);
 
-        $stmt = $pdo->prepare
-        ("UPDATE students SET name = :name, gender = :gender, address = :address WHERE id = :id ");
-    $stmt->execute([
+        $stmt = $pdo->prepare("UPDATE students SET name = :name, gender = :gender, address = :address WHERE id = :id ");
+        $stmt->execute([
         'name' => $name,
         'gender' => $gender,
-        'address' => $address
+        'address' => $address,
+        'id' => $id,
     ]);
         header('Location: student_list.php');
     }
