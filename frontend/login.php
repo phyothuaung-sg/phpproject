@@ -1,5 +1,6 @@
 <?php
  include '../dbconnect.php';
+ session_start();
 
  if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = htmlspecialchars($_POST['userEmail']);
@@ -7,12 +8,14 @@
 
     //echo  $email. ',' . $password;
     $stmt = $pdo ->prepare("SELECT * FROM users WHERE email = :email");
-    $stmt->eecute([
+    $stmt->execute([
         'email' => $email
     ]);
     $user = $stmt->fetch();
     if ($user) {
         if (password_verify($password, $user['password'])) {
+            $_SESSION['user'] = $user;
+            $_SESSION['login'] = true;
             header('Location: index.php');
         } else {
             header('Location: login.php');
