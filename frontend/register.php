@@ -1,6 +1,10 @@
 <?php
  include '../dbconnect.php';
  session_start();
+ if (isset($_SESSION['login'])) {
+        header('Location: profile.php');
+        exit();
+    }
  $errors = [];
 
  if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {

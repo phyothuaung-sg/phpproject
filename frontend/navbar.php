@@ -10,8 +10,8 @@
                 <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['user'])): ?>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="login.php">Logout</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="profile.php">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="return confirm('Are you sure to Logout?')" href="logout.php">Logout</a></li>
                 <?php endif; ?>
             </ul>
         </div>
